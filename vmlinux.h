@@ -3,20 +3,12 @@
 
 #define __rcu __attribute__((btf_type_tag("rcu")))
 
-typedef unsigned int __u32;
-
-struct dst_entry;
-
-struct dst_ops {
-	struct dst_entry * (*check)(struct dst_entry *, __u32);
-};
+struct foo ;
+struct bar { struct foo *foo; };
+struct foo { struct bar *bar; };
 
 struct sock {
-	struct dst_entry __rcu *sk_rx_dst;
-};
-
-struct dst_entry {
-	struct dst_ops *ops;
+	struct foo __rcu *foo;
 };
 
 #endif /* __VMLINUX_H__ */
