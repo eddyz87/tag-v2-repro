@@ -3,11 +3,11 @@ PFLAGS=-J -j --btf_features=encode_force,var,float,enum64,decl_tag,type_tag,opti
 
 default: stage2.o count-sock
 
-stage1.o: stage1.c vmlinux.h
+stage1.o: stage1.c sock.h
 	bear -- clang $(CFLAGS) -c $< -o $@
 	pahole $(PFLAGS) $@
 
-stage2.o: stage2.c stage1.o vmlinux.h
+stage2.o: stage2.c stage1.o sock.h
 	bear -- clang $(CFLAGS) -c $< -o $@
 	pahole $(PFLAGS) --btf_base stage1.o $@
 
